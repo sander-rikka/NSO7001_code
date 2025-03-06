@@ -10,4 +10,10 @@ if __name__ == '__main__':
 
     # 2. download corresponding measurement data
 
-    # 3. plot measured precipitation against radar values
+    # 3. based on measurements, find a week from your month that has some variability in precipitation amounts
+
+    # 4. plot measured precipitation against radar values
+    # 4.1 calculate distance between station and radar
+    # 4.2 save data to csv -> upload to moodle
+
+    # 5. describe results
