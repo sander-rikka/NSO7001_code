@@ -76,10 +76,8 @@ def download_radar_data_for_range(start_datetime, end_datetime):
     end_timestamp = format_timestep(end_datetime)
 
     filter_json = base_filter_json.copy()
-    filter_json["filter"]["and"]["children"][1]["and"]["children"][0]["and"]["children"][0]["and"]["children"][0][
-        "greaterThanOrEqual"]["value"] = start_timestamp
-    filter_json["filter"]["and"]["children"][1]["and"]["children"][0]["and"]["children"][0]["and"]["children"][1][
-        "lessThanOrEqual"]["value"] = end_timestamp
+    filter_json["filter"]["and"]["children"][1]["and"]["children"][0]["greaterThanOrEqual"]["value"] = start_timestamp
+    filter_json["filter"]["and"]["children"][1]["and"]["children"][1]["lessThanOrEqual"]["value"] = end_timestamp
 
     try:
         print(f"Requesting data from {start_timestamp} to {end_timestamp}...")

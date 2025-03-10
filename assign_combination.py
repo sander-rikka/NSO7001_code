@@ -53,6 +53,7 @@ def assign_random_combinations(students, stations, year_months):
 if __name__ == '__main__':
 
     # Example usage
+    # TODO: check/compare available stations from measurement_download.py with the list below!
     list_of_stations = ['Kassari', 'Laimjala', 'Pakri', 'Haapsalu', 'Lääne-Nigula', 'Koodu', 'Kuusiku', 'Türi',
                         'Viljandi', 'Väike-Maarja', 'Jõgeva', 'Tartu-Tõravere', 'Otepää', 'Piigaste', 'Valga', 'Võru',
                         'Tuulemäe', 'Tudu', 'Tiirikoja', 'Jõhvi', 'Narva']
