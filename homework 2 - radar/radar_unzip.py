@@ -15,8 +15,8 @@ ZIP_DIR = "data/radar_raw"
 OUTPUT_DIR = "data/radar_unzipped"
 MISSING_CSV_PATH = "data/missing_data_final.csv"
 
-START_TIME = datetime(2023, 11, 9, 2, 0)
-END_TIME = datetime(2023, 11, 9, 7, 59)
+START_TIME = datetime(2023, 11, 13, 2, 0)
+END_TIME = datetime(2023, 11, 13, 7, 59)
 TIME_INTERVAL = timedelta(minutes=5)
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)

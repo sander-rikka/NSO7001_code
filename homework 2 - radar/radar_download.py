@@ -55,7 +55,7 @@ base_filter_raw_json = {
                             {
                                 "isEqual":{
                                     "field": "Radar",
-                                    "value": "Surgavere radar (SUR)"
+                                    "value": "S\u00FCrgavere radar (SUR)"
                                 }
                             }
                         ]
@@ -159,7 +159,6 @@ def download_radar_data_for_range(start_datetime, end_datetime, raw=False):
                 filename = f"{path}/SUR_{start_datetime.strftime('%Y%m%d%H%M')}_{end_datetime.strftime('%Y%m%d%H%M')}.zip"
                 with open(filename, "wb") as file:
                     for chunk in response.iter_content(chunk_size=8192):
-                        print(f"Chunk received: {len(chunk)} bytes")  # inside iter_content loop
 
                         file.write(chunk)
                 print(f"Data downloaded successfully as '{filename}'.")
@@ -202,8 +201,8 @@ def download_radar_data_with_limit(start_datetime: datetime.datetime,
 
 if __name__ == '__main__':
     # 1. get suitable 6h range to download radar data from measurements
-    start_date = datetime.datetime(2025, 4, 1, 0, 0)
-    end_date = datetime.datetime(2025, 4, 2, 23, 59)
+    start_date = datetime.datetime(2023, 11, 13, 2, 0)
+    end_date = datetime.datetime(2023, 11, 13, 7, 59)
     assert start_date < end_date
 
     # todo: check raw data download
