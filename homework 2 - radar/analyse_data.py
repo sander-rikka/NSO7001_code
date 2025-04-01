@@ -37,15 +37,15 @@ def download_radar_data():
 
 
 if __name__ == '__main__':
+    pass # comment this line if you want to run the whole script from start to the end
 
+    # description
     # 1. download corresponding measurement data
     #measurements_df = download_measurement_data()
 
-    # 2. download radar data
-    download_radar_data()
-
-    # 3. based on measurements, find a week from your month that has some variability in precipitation amounts
-
+    # 2. based on measurements, find a week from your month that has some variability in precipitation amounts
+    # 2.1. download radar data
+    #download_radar_data()
 
     # 4. plot measured precipitation against radar values
     # 4.1 calculate distance between station and radar

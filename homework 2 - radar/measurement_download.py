@@ -145,11 +145,16 @@ def fetch_data_for_parameters(params_to_download, stations_to_download, start_da
     Returns a single combined DataFrame.
     """
     start_date = datetime.strptime(start_date_str, "%Y-%m-%d %H:%M:%S")
-    end_date = datetime.strptime(end_date_str, "%Y-%m-%d %H:%M:%S")
+    try:
+        end_date = datetime.strptime(end_date_str, "%Y-%m-%d %H:%M:%S")
+    except ValueError:
+        exit('End date not valid. Probably day number too high for selected month.')
 
+    print(f'Fetching {len(params_to_download)} measured parameters for {len(stations_to_download)} station(s).')
     final_df = pd.DataFrame()
 
     for station_name in stations_to_download:
+        print(f'Fetching data for {station_name}...')
         station_code = possible_stations[station_name]
 
         for param_fullname in params_to_download:
@@ -234,6 +239,7 @@ def fetch_data_for_parameters(params_to_download, stations_to_download, start_da
 
     # Sort by datetime
     final_df.sort_values("datetime", inplace=True)
+    final_df.set_index('datetime', inplace=True)
 
     return final_df
 
@@ -256,10 +262,10 @@ if __name__ == '__main__':
     #]
     params_to_download = ['1h max air temp (C)',
                           '1h precipitation sum (mm)']
-    stations_to_download = ['Tallinn-Harku', 'Ruhnu']
+    stations_to_download = ['Türi']
 
-    start_date_str = '2020-01-01 00:00:00'
-    end_date_str = '2020-01-03 23:59:59'
+    start_date_str = '2023-11-01 00:00:00'
+    end_date_str = '2023-11-30 23:59:59'
 
     # ========== Call the function to fetch data ==========
     final_df = fetch_data_for_parameters(
@@ -270,6 +276,6 @@ if __name__ == '__main__':
     )
 
     # Example: save to CSV or process further
-    #final_df.to_csv('my_downloaded_data.csv', index=False)
+    final_df.to_csv('data/tyri_meas_data_202311.csv')
     print(final_df.head(20))
     print("Data download complete.")

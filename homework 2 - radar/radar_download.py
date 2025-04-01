@@ -4,10 +4,67 @@ import time
 import datetime
 import requests
 
-path = "./data"
+path = "./data/radar_raw"
 os.makedirs(path, exist_ok=True)
 
 zipped_files_url = "https://avaandmed.keskkonnaportaal.ee/_vti_bin/RmApi.svc/active/items/zipped-files"
+
+base_filter_raw_json = {
+    "filter": {
+        "and": {
+            "children": [
+                {
+                    "isEqual": {
+                        "field": "$contentType",
+                        "value": "0102FB01"
+                    }
+                },
+                {
+                    "and": {
+                        "children": [
+                            {
+                                "and": {
+                                    "children": [
+                                        {
+                                            "and": {
+                                                "children": [
+                                                    {
+                                                        "greaterThanOrEqual": {
+                                                            "field": "Timestamp",
+                                                            "value": ""
+                                                        }
+                                                    },
+                                                    {
+                                                        "lessThanOrEqual": {
+                                                            "field": "Timestamp",
+                                                            "value": ""
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "isEqual": {
+                                                "field": "Phenomenon",
+                                                "value": "VOL"
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "isEqual":{
+                                    "field": "Radar",
+                                    "value": "Surgavere radar (SUR)"
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}
 
 base_filter_json = {
     "filter": {
@@ -71,13 +128,20 @@ def format_timestep(dt):
     return dt.strftime("%Y-%m-%dT%H:%M:%S.0000000\u002B00:00")
 
 
-def download_radar_data_for_range(start_datetime, end_datetime):
+def download_radar_data_for_range(start_datetime, end_datetime, raw=False):
     start_timestamp = format_timestep(start_datetime)
     end_timestamp = format_timestep(end_datetime)
 
-    filter_json = base_filter_json.copy()
-    filter_json["filter"]["and"]["children"][1]["and"]["children"][0]["greaterThanOrEqual"]["value"] = start_timestamp
-    filter_json["filter"]["and"]["children"][1]["and"]["children"][1]["lessThanOrEqual"]["value"] = end_timestamp
+    if not raw:
+        filter_json = base_filter_json.copy()
+        filter_json["filter"]["and"]["children"][1]["and"]["children"][0]["greaterThanOrEqual"]["value"] = start_timestamp
+        filter_json["filter"]["and"]["children"][1]["and"]["children"][1]["lessThanOrEqual"]["value"] = end_timestamp
+    else:
+        filter_json = base_filter_raw_json.copy()
+        filter_json["filter"]["and"]["children"][1]["and"]["children"][0]["and"]["children"][0]["and"]["children"][0][
+            "greaterThanOrEqual"]["value"] = start_timestamp
+        filter_json["filter"]["and"]["children"][1]["and"]["children"][0]["and"]["children"][0]["and"]["children"][1][
+            "lessThanOrEqual"]["value"] = end_timestamp
 
     try:
         print(f"Requesting data from {start_timestamp} to {end_timestamp}...")
@@ -90,9 +154,13 @@ def download_radar_data_for_range(start_datetime, end_datetime):
         ) as response:
 
             if response.status_code == 200:
-                filename = f"{path}/HAR_{start_datetime.strftime('%Y%m%d%H%M')}_{end_datetime.strftime('%Y%m%d%H%M')}.zip"
+                print(response.headers)
+
+                filename = f"{path}/SUR_{start_datetime.strftime('%Y%m%d%H%M')}_{end_datetime.strftime('%Y%m%d%H%M')}.zip"
                 with open(filename, "wb") as file:
                     for chunk in response.iter_content(chunk_size=8192):
+                        print(f"Chunk received: {len(chunk)} bytes")  # inside iter_content loop
+
                         file.write(chunk)
                 print(f"Data downloaded successfully as '{filename}'.")
                 return True
@@ -105,7 +173,12 @@ def download_radar_data_for_range(start_datetime, end_datetime):
         return False
 
 
-def download_radar_data_with_limit(start_datetime, end_datetime, interval_hour, days_per_hour):
+def download_radar_data_with_limit(start_datetime: datetime.datetime,
+                                   end_datetime: datetime.datetime,
+                                   interval_hour: int,
+                                   days_per_hour: int,
+                                   raw=True):
+
     ranges = generate_ranges(start_datetime, end_datetime, interval_hour)
     total_days_downloaded = 0
     start_time = time.time()
@@ -120,7 +193,7 @@ def download_radar_data_with_limit(start_datetime, end_datetime, interval_hour, 
             total_days_downloaded = 0
             start_time = time.time()
 
-        success = download_radar_data_for_range(start, end)
+        success = download_radar_data_for_range(start, end, raw=raw)
         if success:
             total_days_downloaded += interval_hour / 24
         else:
@@ -128,9 +201,12 @@ def download_radar_data_with_limit(start_datetime, end_datetime, interval_hour, 
 
 
 if __name__ == '__main__':
-    start_date = datetime.datetime(2020, 9, 1, 0, 0)
-    end_date = datetime.datetime(2024, 8, 31, 23, 59)
+    # 1. get suitable 6h range to download radar data from measurements
+    start_date = datetime.datetime(2025, 4, 1, 0, 0)
+    end_date = datetime.datetime(2025, 4, 2, 23, 59)
+    assert start_date < end_date
 
+    # todo: check raw data download
     interval_hour = 1
     days_per_hour = 12
 
