@@ -37,18 +37,20 @@ def download_radar_data():
 
 
 if __name__ == '__main__':
-    pass # comment this line if you want to run the whole script from start to the end
 
-    # description
-    # 1. download corresponding measurement data
-    #measurements_df = download_measurement_data()
+    # download measurements according to your station
+    # find suitable time period to download radar data
+    # unzip radar data
+    # convert radar reflectivity to rainfall
+    # extract rainfall amounts from radar based on the measurement location
 
-    # 2. based on measurements, find a week from your month that has some variability in precipitation amounts
-    # 2.1. download radar data
-    #download_radar_data()
-
-    # 4. plot measured precipitation against radar values
-    # 4.1 calculate distance between station and radar
-    # 4.2 save data to csv -> upload to moodle
-
-    # 5. describe results
+    # from measurements take the same time period (5 - 6 values) as radar data in radar_rain_amount.csv
+        # use matplotlib scatterplot
+        # measured rainfall on x-axis, radar rainfall on y-axis
+        # do not forget units
+    # calculate following statistics between measured rainfall and radar derived rainfall
+        # pearson correlation
+        # root mean squared difference (RMSD which is same as RMSE if somebody is confused)
+    # calculate distance between radar tower and your station
+    # plot all 6 hours of radar data > use radar_plot.py for that
+    pass

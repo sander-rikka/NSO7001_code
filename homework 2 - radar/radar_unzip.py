@@ -15,8 +15,8 @@ ZIP_DIR = "data/radar_raw"
 OUTPUT_DIR = "data/radar_unzipped"
 MISSING_CSV_PATH = "data/missing_data_final.csv"
 
-START_TIME = datetime(2023, 11, 13, 2, 0)
-END_TIME = datetime(2023, 11, 13, 7, 59)
+start_date = datetime(2023, 11, 13, 2, 0)
+end_date = datetime(2023, 11, 13, 7, 59)
 TIME_INTERVAL = timedelta(minutes=5)
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -48,8 +48,8 @@ def extract_all_zips():
 
 def generate_expected_timestamps():
     timestamps = []
-    current = START_TIME
-    while current <= END_TIME:
+    current = start_date
+    while current <= end_date:
         timestamps.append(current.strftime("%Y-%m-%dT%H:%M"))
         current += TIME_INTERVAL
     return timestamps

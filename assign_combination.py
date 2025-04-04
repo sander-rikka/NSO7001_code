@@ -53,16 +53,14 @@ def assign_random_combinations(students, stations, year_months):
 if __name__ == '__main__':
 
     # Example usage
-    # TODO: check/compare available stations from measurement_download.py with the list below!
-    list_of_stations = ['Kassari', 'Laimjala', 'Pakri', 'Haapsalu', 'Lääne-Nigula', 'Koodu', 'Kuusiku', 'Türi',
-                        'Viljandi', 'Väike-Maarja', 'Jõgeva', 'Tartu-Tõravere', 'Otepää', 'Piigaste', 'Valga', 'Võru',
-                        'Tuulemäe', 'Tudu', 'Tiirikoja', 'Jõhvi', 'Narva']
+
+    list_of_stations = ['Kihnu', 'Pärnu', 'Kuusiku', 'Türi', 'Tooma', 'Jõgeva', 'Tiirikoja', 'Tartu-Tõravere',
+                        'Viljandi', 'Valga', 'Võru']
     list_of_student = ['Yandar Alekseev', 'Mayin-jesu Ehinlaiye', 'Karina Filippova', 'Gustav Glaase',
                        'Amanda Karakai', 'Helene Armilde Kudre', 'Iris Kuhi', 'Lola Link', 'Reet Männik',
                        'Hannah Mikenberg', 'Ingrette Pärnamägi', 'Kristjan Georg Ristmäe', 'Siim Roov',
                        'Alice Saluorg', 'Elizabeth Šanin', 'Ilja Stetski', 'Kettreen Vinkel']
-    list_of_year_months = ['11.23', '12.23', '1.24', '2.24', '3.24', '4.24', '5.24', '6.24', '7.24', '8.24',
-                           '9.24', '10.24', '11.24', '12.24', '1.25', '2.25']
+    list_of_year_months = ['2020', '2021', '2022', '2023', '2024', '2025']
 
     assignments_df = assign_random_combinations(students=list_of_student,
                                                 stations=list_of_stations,
