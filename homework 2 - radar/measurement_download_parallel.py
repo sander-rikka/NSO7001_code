@@ -26,22 +26,6 @@ possible_minute_params = {
     '10 minute precipitation sum (mm)': 'PR10M',
 }
 
-# possible_hour_params = {
-#     '1h max wind speed (m/s)': 'WSX1H',
-#     'last 10 min mean wind speed (m/s)': 'WS10M',
-#     'last 10 min prevailing wind dir (deg)': 'WD10M',
-#     '1h max air temp (C)': 'TAX1H',
-#     '1h min air temp (C)': 'TAN1H',
-#     '1h mean air temp (C)': 'TA1H',
-#     '1h mean relative humidity (%)': 'RH1H',
-#     '1h precipitation sum (mm)': 'PR1H',
-#     '1h mean air pressure (hPa)': 'PA1H',
-#     '1h mean wind speed (m/s)': 'WS1H',
-#     '1h mean wind direction (deg)': 'WD1H',
-#     '1h mean radiation (W/m2)': 'RQS1H',
-#     '1h sunshine duration (min)': 'SDUR1H',
-# }
-
 possible_hour_params = {
     '1h max wind speed (m/s)': 'WSX1H',
     'last 10 min mean wind speed (m/s)': 'WS10M',
