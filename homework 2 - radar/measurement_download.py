@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 # ---------------- Dictionaries ----------------
 possible_minute_params = {'10 minute mean wind speed (m/s)': 'WS10MA',
                           '10 minute max wind speed (m/s)': 'WS10MX',
-                          '10 minute prevailing wind direction (deg)': 'WS10W',
+                          '10 minute prevailing wind direction (deg)': 'WD10MA',
                           '10 minute precipitation sum (mm)': 'PR10M'}
 
 possible_hour_params = {'1h max wind speed (m/s)': 'WSX1H',
@@ -260,12 +260,14 @@ if __name__ == '__main__':
     #    '10 minute precipitation sum (mm)',
     #    '10 minute mean wind speed (m/s)'
     #]
-    params_to_download = ['1h max air temp (C)',
-                          '1h precipitation sum (mm)']
-    stations_to_download = ['Türi']
+    params_to_download = ['10 minute mean wind speed (m/s)',
+                          '10 minute max wind speed (m/s)',
+                          '10 minute prevailing wind direction (deg)']
 
-    start_date_str = '2023-11-01 00:00:00'
-    end_date_str = '2023-11-30 23:59:59'
+    stations_to_download = ['Pakri']
+
+    start_date_str = '2022-05-01 00:00:00'
+    end_date_str = '2022-05-30 23:59:59'
 
     # ========== Call the function to fetch data ==========
     final_df = fetch_data_for_parameters(
@@ -276,6 +278,6 @@ if __name__ == '__main__':
     )
 
     # Example: save to CSV or process further
-    final_df.to_csv('data/tyri_meas_data_202311.csv')
+    final_df.to_csv('data/vilsandi_wind_meas_data_2000-25.csv')
     print(final_df.head(20))
     print("Data download complete.")

@@ -41,7 +41,7 @@ if __name__ == '__main__':
 
     # loop to extract accumulated rainfall from radar arrays for the station
     image_path = 'data/radar_rainfall/accumulated_rainfall/1h'
-    rain_amount = []
+    rain_amount = [] 
     for file in os.listdir(image_path):
         print(file)
         ts_str = os.path.basename(file).split("_")[1].split(".")[0]
