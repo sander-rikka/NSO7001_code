@@ -7,8 +7,8 @@ import os
 def get_coords_arr(ranges, azimuths, radar_lat, radar_lon):
 
     r, theta = np.meshgrid(ranges, np.radians(azimuths))
-    x = r * np.cos(theta)
-    y = r * np.sin(theta)
+    x = r * np.sin(theta)
+    y = r * np.cos(theta)
 
     lat = radar_lat + (y / 6371000) * (180 / np.pi)
     lon = radar_lon + (x / (6371000 * np.cos(np.radians(radar_lat)))) * (180 / np.pi)
