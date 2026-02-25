@@ -1,30 +1,30 @@
 # Maasüsteemide kaugseire – Kodutöö nr 1 (Python + Copernicus Browser API / Sentinel Hub)
 
 # TUDENGITE JAOTUS
-| Student | Year | VAR1 | VAR2 |
-|---|---:|---|---|
+| Student | Year | Variable_1 | Variable_2 |
+| --- | --- | --- | --- |
 | Yandar Alekseev | 2022 | NO2 | CO |
 | Iiris Aljes | 2022 | O3 | NO2 |
 | Arina Gotsenko | 2025 | NO2 | O3 |
 | Hele-Riin Hallik | 2023 | NO2 | CH4 |
 | Claudia-Isabel Huuse | 2023 | CH4 | NO2 |
-| Alis Jakobson | 2023 | O3 | CH4 |
-| Sofiia Katsenelson | 2023 | NO2 | O3 |
-| Aleksei Kotikov | 2022 | CH4 | NO2 |
-| Ilja Kotsar | 2023 | NO2 | CO |
-| Anastassia Kulgina | 2025 | CO | O3 |
-| Egle Laube | 2025 | NO2 | CO |
-| Erik Leis | 2022 | O3 | CH4 |
-| Andreas Liiv | 2023 | CO | CH4 |
-| Olesja Lisovenko | 2022 | CH4 | CO |
-| Marten Lõoke | 2025 | CO | CH4 |
-| Andreas Matso | 2022 | O3 | CO |
-| Anastasia Migunova | 2025 | O3 | CO |
-| Egert Narus | 2022 | CH4 | O3 |
-| Marii Paladii | 2025 | NO2 | CH4 |
-| Madis Peterson | 2025 | CO | NO2 |
-| Annabel Soomann | 2023 | O3 | CO |
-| Gleb Tugarinov | 2025 | CH4 | O3 |
+| Trinity Jõgisalu | 2025 | O3 | NO2 |
+| Lisette Johanson | 2024 | NO2 | CH4 |
+| Katarina Kaleininkas | 2020 | CO | NO2 |
+| Rene Kaur | 2020 | O3 | NO2 |
+| Kaia Korman | 2021 | NO2 | CH4 |
+| Nikita Lagutkin | 2024 | CH4 | O3 |
+| Margot Leheroo | 2021 | CH4 | O3 |
+| Helena Heliise Mardi | 2021 | CH4 | O3 |
+| Regina Poom | 2025 | CH4 | CO |
+| Avely-Agnes Pumalainen | 2023 | O3 | CH4 |
+| Elisa Rajas | 2020 | NO2 | CO |
+| Kristjan Georg Ristmäe | 2025 | CH4 | NO2 |
+| Liis Seenemaa | 2023 | CH4 | O3 |
+| Jaan Eerik Sorga | 2020 | O3 | NO2 |
+| Grete Anette Treiman | 2022 | O3 | CH4 |
+| Taavi Tunis | 2022 | CH4 | O3 |
+| Heily Untera | 2022 | O3 | CO |
 
 See repo on Sentinel‑5P (TROPOMI) Level‑2 toodete (nt **NO₂**, **CH₄**, **O₃**) visualiseerimiseks.
 Töövoog on tehtud tudengitele: samm‑sammult konto loomine, Python keskkond, API ligipääs ja piltide genereerimine.
