@@ -234,9 +234,9 @@ def fetch_data_for_parameters_parallel(params_to_download: List[str],
                                        max_workers: int = MAX_WORKERS) -> Dict[str, pd.DataFrame]:
     """
     Parallel month fetching with final 10‑minute reindex for gaps.
-    RETURNS: dict { station_name: DataFrame } —
-             each DF is indexed by naive UTC datetime (name: 'datetime (utc)')
-             and columns are element codes only (no station names).
+    RETURNS: dict { station_name: DataFrame }.
+    Each DF is indexed by naive UTC datetime (name: 'datetime (utc)')
+    and columns are element codes only (no station names).
     """
     start_date = datetime.strptime(start_date_str, "%Y-%m-%d %H:%M:%S")
     end_date = datetime.strptime(end_date_str, "%Y-%m-%d %H:%M:%S")
@@ -251,6 +251,7 @@ def fetch_data_for_parameters_parallel(params_to_download: List[str],
 
         # We'll build a wide DF per station with element_code columns
         station_df = pd.DataFrame()
+        station_data_types = set()
 
         for param_fullname in params_to_download:
             if param_fullname in possible_minute_params:
@@ -266,6 +267,7 @@ def fetch_data_for_parameters_parallel(params_to_download: List[str],
                 log(f"  Skipping unknown parameter: {param_fullname}")
                 continue
 
+            station_data_types.add(data_type)
             col_label = element_code  # IMPORTANT: no station name in the header
 
             # Build month job list
@@ -323,7 +325,14 @@ def fetch_data_for_parameters_parallel(params_to_download: List[str],
         # Final tidy per station: sort and reindex to 10‑minute grid (naive)
         if not station_df.empty:
             station_df = station_df.sort_index()
-            full_index = pd.date_range(start=start_date, end=end_date, freq="1h")
+            if "minute" in station_data_types:
+                out_freq = "10min"
+            elif "hour" in station_data_types:
+                out_freq = "1h"
+            else:
+                out_freq = "1D"
+
+            full_index = pd.date_range(start=start_date, end=end_date, freq=out_freq)
             station_df = station_df.reindex(full_index)
             station_df.index.name = "datetime (utc)"
             station_frames[station_name] = station_df
@@ -342,7 +351,7 @@ def save_station_csvs(station_frames: Dict[str, pd.DataFrame], out_dir: Path) ->
         idx_str = df.index.strftime('%Y-%m-%d %H:%M')
         df_to_write = df.copy()
         df_to_write.index = idx_str
-        out = out_dir / f"{station.replace(' ', '_')}_1h_wind_2011-2025jul.csv"
+        out = out_dir / f"{station.replace(' ', '_')}_measurements.csv"
         df_to_write.to_csv(out, index=True)
         log(f"Saved → {out}")
 

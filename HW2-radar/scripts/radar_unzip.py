@@ -40,7 +40,11 @@ def extract_zip_file(zip_filename):
 
 
 def extract_all_zips():
+    if not os.path.isdir(ZIP_DIR):
+        return set()
     zip_files = sorted(f for f in os.listdir(ZIP_DIR) if f.endswith(".zip"))
+    if not zip_files:
+        return set()
     results = Parallel(n_jobs=-1)(delayed(extract_zip_file)(f) for f in zip_files)
     all_extracted = set().union(*results)
     return all_extracted
@@ -72,7 +76,9 @@ def extract_timestamps_from_files(file_list):
 # ----------------------------
 if __name__ == "__main__":
     print("Extracting ZIP files...")
-    extracted_files = os.listdir(OUTPUT_DIR) or extract_all_zips()
+    extracted_files = extract_all_zips()
+    if not extracted_files:
+        extracted_files = set(os.listdir(OUTPUT_DIR))
 
     print("Extracting timestamps from files...")
     actual_timestamps = extract_timestamps_from_files(extracted_files)

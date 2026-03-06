@@ -1,7 +1,11 @@
 """Script and functions to download radar and measurements and do the analysis."""
 # TODO: rewrite in jupyter notebook for next year students :)
-from radar_download import download_radar_data_with_limit
-from measurement_download import fetch_data_for_parameters
+try:
+    from .radar_download import download_radar_data_with_limit
+    from .measurement_download import fetch_data_for_parameters
+except ImportError:
+    from radar_download import download_radar_data_with_limit
+    from measurement_download import fetch_data_for_parameters
 import pandas as pd
 import datetime
 import matplotlib.pyplot as plt

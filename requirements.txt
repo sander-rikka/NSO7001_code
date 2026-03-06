@@ -1,0 +1,26 @@
+# NSO7001 course requirements (covers both HW1 and HW2)
+# Recommended Python version: 3.11
+
+# Core data + plotting
+numpy
+pandas
+matplotlib
+seaborn
+scipy
+joblib
+requests
+
+# Notebook environment
+jupyterlab
+ipykernel
+
+# HW1 (atmosphere)
+sentinelhub
+python-dotenv
+geopandas
+rasterio
+
+# HW2 (radar)
+cartopy
+xradar
+wradlib

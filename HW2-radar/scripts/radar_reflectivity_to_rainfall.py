@@ -57,7 +57,7 @@ def save_radar_metadata(directory, sweep_0, radar_data):
     ]))
 
 
-def process_radar_file(file, rainfall_intensities_dir):
+def process_radar_file(file, rainfall_intensities_dir, a, b):
     # Process a single radar file and compute rainfall intensity
     try:
         radar_data = xd.io.open_odim_datatree(file)
@@ -82,7 +82,7 @@ def process_radar_file(file, rainfall_intensities_dir):
     # Clean reflectivity and convert to rainfall
     reflectivity_filtered = clean_radar_reflectivity_by_azimuth_aggressive(
         reflectivity, window=5, threshold=8.0, background_cutoff=0.0, fill_value=np.nan, min_area=10)
-    rainfall_intensity = reflectivity_to_rainfall(reflectivity_filtered)
+    rainfall_intensity = reflectivity_to_rainfall(reflectivity_filtered, a=a, b=b)
 
     # Save processed rainfall intensity
     np.save(output_file, np.where(np.isnan(rainfall_intensity), np.nan, rainfall_intensity))
@@ -92,10 +92,8 @@ def process_radar_file(file, rainfall_intensities_dir):
         save_radar_metadata(rainfall_intensities_dir, sweep_0, radar_data)
 
 
-def main():
+def main(a=300, b=1.5, intervals=(1,)):
     # --- CONFIGURATION ---
-    a, b = 300, 1.5
-    path = "./data"
     input_dir = "data/radar_unzipped"
     output_base_dir = "data/radar_rainfall"
 
@@ -106,14 +104,21 @@ def main():
 
     # --- LIST RADAR FILES ---
     radar_files = []
+    if not os.path.isdir(input_dir):
+        raise FileNotFoundError(f"Input directory not found: {input_dir}")
+
     for f in os.listdir(input_dir):
         if f.endswith(".h5"):
             radar_files.append(os.path.join(input_dir, f))
     radar_files = sorted(radar_files)
+    if not radar_files:
+        raise FileNotFoundError(f"No .h5 files found in {input_dir}")
 
     # Process files in parallel
-    num_cores = os.cpu_count() - 1
-    Parallel(n_jobs=num_cores)(delayed(process_radar_file)(file, rainfall_intensities_dir) for file in radar_files)
+    num_cores = max(1, (os.cpu_count() or 1) - 1)
+    Parallel(n_jobs=num_cores)(
+        delayed(process_radar_file)(file, rainfall_intensities_dir, a, b) for file in radar_files
+    )
 
     # --- LIST RAINFALL FILES ---
     rainfall_files = []
@@ -130,9 +135,9 @@ def main():
         timestamps.append((idx, ts))
 
     # --- HOURLY ACCUMULATION ---
-    intervals = [1]  # in hours
     for interval_hr in intervals:
-        frames_needed = interval_hr * 6  # 12 files per hour
+        # 5-minute radar cadence -> 12 frames per hour.
+        frames_needed = interval_hr * 12
         interval_dir = os.path.join(accumulated_rainfall_dir, f"{interval_hr}h")
         os.makedirs(interval_dir, exist_ok=True)
 

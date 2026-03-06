@@ -2,6 +2,7 @@ import os
 import json
 import time
 import datetime
+import copy
 import requests
 
 path = "./data/radar_raw"
@@ -133,11 +134,11 @@ def download_radar_data_for_range(start_datetime, end_datetime, raw=False):
     end_timestamp = format_timestep(end_datetime)
 
     if not raw:
-        filter_json = base_filter_json.copy()
+        filter_json = copy.deepcopy(base_filter_json)
         filter_json["filter"]["and"]["children"][1]["and"]["children"][0]["greaterThanOrEqual"]["value"] = start_timestamp
         filter_json["filter"]["and"]["children"][1]["and"]["children"][1]["lessThanOrEqual"]["value"] = end_timestamp
     else:
-        filter_json = base_filter_raw_json.copy()
+        filter_json = copy.deepcopy(base_filter_raw_json)
         filter_json["filter"]["and"]["children"][1]["and"]["children"][0]["and"]["children"][0]["and"]["children"][0][
             "greaterThanOrEqual"]["value"] = start_timestamp
         filter_json["filter"]["and"]["children"][1]["and"]["children"][0]["and"]["children"][0]["and"]["children"][1][

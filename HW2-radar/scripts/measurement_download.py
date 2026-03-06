@@ -121,7 +121,7 @@ def to_dataframe(raw_data, param_label):
             lambda row: datetime(row['aasta'], row['kuu'], row['paev'], row['tund'], row['minut']),
             axis=1
         )
-    elif 'minut' not in df.columns:
+    elif 'tund' in df.columns:
         df['datetime'] = df.apply(
             lambda row: datetime(row['aasta'], row['kuu'], row['paev'], row['tund']),
             axis=1
