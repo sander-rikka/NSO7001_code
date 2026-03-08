@@ -25,6 +25,7 @@
 | Grete Anette Treiman | 2022 | O3 | CH4 |
 | Taavi Tunis | 2022 | CH4 | O3 |
 | Heily Untera | 2022 | O3 | CO |
+| Mattias Tammi | 2022 | CO | O3 |
 
 See repo on Sentinel‑5P (TROPOMI) Level‑2 toodete (nt **NO₂**, **CH₄**, **O₃**) visualiseerimiseks.
 Töövoog on tehtud tudengitele: samm‑sammult konto loomine, Python keskkond, API ligipääs ja piltide genereerimine.

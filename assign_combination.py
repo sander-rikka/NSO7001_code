@@ -79,13 +79,12 @@ def assign_hw1_combinations(students, variables, years):
 
 if __name__ == '__main__':
 
-    # Example usage
     list_of_student = ['Yandar Alekseev', 'Iiris Aljes', 'Arina Gotsenko', 'Hele-Riin Hallik',
                    'Claudia-Isabel Huuse', 'Trinity Jõgisalu', 'Lisette Johanson', 
                    'Katarina Kaleininkas', 'Rene Kaur', 'Kaia Korman', 'Nikita Lagutkin', 
                    'Margot Leheroo', 'Helena Heliise Mardi', 'Regina Poom', 'Avely-Agnes Pumalainen', 
                    'Elisa Rajas', 'Kristjan Georg Ristmäe', 'Liis Seenemaa', 'Jaan Eerik Sorga',
-                   'Grete Anette Treiman', 'Taavi Tunis', 'Heily Untera']
+                   'Grete Anette Treiman', 'Taavi Tunis', 'Heily Untera', 'Mattias Tammi']
 
     list_of_years = ['2020', '2021', '2022', '2023', '2024', '2025']
 

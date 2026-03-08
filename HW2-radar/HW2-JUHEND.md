@@ -24,6 +24,7 @@
 | Grete Anette Treiman | Viljandi | 2020 | Võru | 2020 |
 | Taavi Tunis | Tiirikoja | 2025 | Tooma | 2024 |
 | Heily Untera | Tartu-Tõravere | 2021 | Kihnu | 2024 |
+| Mattias Tammi | Jõgeva | 2024 | Valga | 2023 |
 
 Kodutöö tehakse ühe notebooki sees:
 - `HW2-radar/hw2_course.ipynb`
