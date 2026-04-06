@@ -221,8 +221,7 @@ Esita mõlema sinu tunnuse kohta:
 - 1 toorvaade kaart (Processing API, lühike periood);
 - 1 kuu keskmise kaart (ORBIT + dataMask);
 - riikide võrdlus (top keskmised + boxplot);
-- pealinnade ajaseeria (Statistical API);
-- vähemalt üks CSV ajareaga `outputs/` kaustast.
+- pealinnade ajaseeria (Statistical API).
 
 Kirjalikus osas selgita lühidalt:
 - milline oli kasutatud aasta ja ajavahemikud;
